@@ -24,7 +24,7 @@ public class AdjacencyList {
         this.m=m;
         edge = new LinkedList[m];
     }
-    public void readVertex(Node[]a )
+    public void setVertex(Node[]a )
     {
         for (int i=0; i<a.length;i++)
         {
@@ -35,7 +35,7 @@ public class AdjacencyList {
         }
     }
     
-    public void readEdges(Edge[] a)
+    public void setEdges(Edge[] a)
     {
         int temp;
         if (a[0].getDirected()==false)

@@ -14,7 +14,7 @@ import java.util.Iterator;
 public class Node implements Collection {
     
        private int id;
-       private Edge next;
+       private Edge next=new Edge();
         
         
     Node()
