@@ -12,17 +12,14 @@ public class Node {
     
         int id;
         Node Next;
-        Node Down;
-        int weight;
+        
+        
         
     Node()
             {
               id=-1;
               
-              
-              weight=0;
               Next=null;
-              Down=null;
             }
     }
 
