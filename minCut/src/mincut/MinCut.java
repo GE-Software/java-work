@@ -41,11 +41,8 @@ public class MinCut {
             tailId=edgeList.get(index).getTail().getId();
             headId=edgeList.get(index).getHead().getId();
             uf.union(tailId, headId);
-           /** Node vremove=new Node();
-            vremove.setId(edgeList.get(index).getHead().getId());
-            vremove.setNext(edgeList.get(index).getHead().getNext());
-            */
-            removeVertex(edgeList.get(index).getHead());
+           
+            removeVertex(edgeList.get(index).getTail(),edgeList.get(index).getHead());
             removeSelfLoops();
             
         }
@@ -67,21 +64,26 @@ public class MinCut {
                 j=j+1;          
             }
         }
-       for (int i=0; i<j;i++)
+       for (int i=j-1; i>=0;i--)
                     edgeList.remove(temp[i]);
     
     }
     
     
-    private void removeVertex(Node h)
+    private void removeVertex(Node t,Node h)
     {
         //if (vertexList.contains(t)) {
         //    vertexList.remove(t);
         //}
         
-        if (vertexList.contains(h)) {
-            vertexList.remove(h);
+        if (vertexList.contains(t)) {
+            vertexList.remove(t);
+           
         }
+        else
+            if (vertexList.contains(h)){
+                vertexList.remove(h);
+            }
      }
     
     
@@ -99,9 +101,9 @@ public class MinCut {
     List<Node> v=new LinkedList<>();
     List<Edge> e=new LinkedList<>();
     
-    Node[] temp=new Node[4];
+    Node[] temp=new Node[8];
     
-    for (int i=0; i<4;i++)
+    for (int i=0; i<8;i++)
     {
         temp[i]=new Node();
         temp[i].setId(i);
@@ -110,9 +112,9 @@ public class MinCut {
     }
     //
     
-    Edge[] t=new Edge[6];
+    Edge[] t=new Edge[14];
     
-        for (int i=0; i<6; i++)
+        for (int i=0; i<14; i++)
         {
             t[i]=new Edge();
             t[i].setDirected(false);
@@ -124,21 +126,40 @@ public class MinCut {
         t[1].setHead(temp[2]);
         t[2].setTail(temp[0]);
         t[2].setHead(temp[3]);
+        t[3].setTail(temp[0]);
+        t[3].setHead(temp[3]);// changed from 6 for testing
+        
         //t[2].setTail(temp[1]);
         //t[2].setHead(temp[0]);
-        t[3].setTail(temp[1]);
-        t[3].setHead(temp[2]);
         t[4].setTail(temp[1]);
-        t[4].setHead(temp[3]);
-        
-        t[5].setTail(temp[2]);
+        t[4].setHead(temp[2]);
+        t[5].setTail(temp[1]);
         t[5].setHead(temp[3]);
+        
+        t[6].setTail(temp[2]);
+        t[6].setHead(temp[3]);
         //t[4].setTail(temp[2]);
         //t[4].setHead(temp[0]);
         //t[5].setTail(temp[2]);
         //t[5].setHead(temp[1]);
-    
-    for (int i=0; i<6; i++)
+        t[7].setTail(temp[3]);
+        t[7].setHead(temp[4]);
+        t[8].setTail(temp[4]);
+        t[8].setHead(temp[5]);
+        t[9].setTail(temp[4]);
+        t[9].setHead(temp[6]);
+        t[10].setTail(temp[5]);
+        t[10].setHead(temp[6]);
+        t[11].setTail(temp[5]);
+        t[11].setHead(temp[7]);
+        t[12].setTail(temp[6]);
+        t[12].setHead(temp[7]);
+        t[13].setTail(temp[4]);
+        t[13].setHead(temp[7]);
+        
+        
+        
+    for (int i=0; i<14; i++)
         {
            e.add(t[i]);
             
@@ -146,10 +167,14 @@ public class MinCut {
         
          
         
-        MinCut mc=new MinCut(4,6,v,e);
+        MinCut mc=new MinCut(8,14,v,e);
 
         int result=mc.minCut();
-        System.out.println(result);
+        System.out.println("# of edges"+result);
+        
+        System.out.println(mc.vertexList.get(0).getId());
+        System.out.println(mc.vertexList.get(1).getId());
+        
         for (int i=0; i<mc.edgeList.size();i++)
         {
             System.out.print(mc.edgeList.get(i).getTail().getId());

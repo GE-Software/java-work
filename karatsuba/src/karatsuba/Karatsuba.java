@@ -14,76 +14,61 @@ public class Karatsuba {
     Karatsuba()
     {
     }    
-    public String multiply(StringBuilder m, StringBuilder n)
-    {   
-       if (testvalue(m)<10 || testvalue(n)<10)
+    public StringBuilder multiply(StringBuilder m, StringBuilder n)
+    {  
+       
+        if (testvalue(m)<10 || testvalue(n)<10)
        {
-           int t=testvalue(m)*testvalue(n);
+           Long t=testvalue(m)*testvalue(n);
            
-           return (Integer.toString(t));
+           return (new StringBuilder().append(Long.toString(t)));
        }
        else
        {
+            int difference;
+       if (m.length()>n.length())
+       {
+           difference=m.length()-n.length();
+           for (int i=0;i<difference;i++)
+               n.insert(0,"0");
+       }
+       else if (n.length()>m.length()){
+           difference=n.length()-m.length();
+           for (int i=0;i<difference;i++)
+               m.insert(0,"0");
+       }
+           
+           
+           
            int length1=m.length();
            int length2=n.length();
-           StringBuilder a=new StringBuilder();
-           StringBuilder b=new StringBuilder();
-           StringBuilder c=new StringBuilder();
-           StringBuilder d=new StringBuilder();
+           StringBuilder a=new StringBuilder(m.substring(0,length1/2));
+           StringBuilder b=new StringBuilder(m.substring(length1/2,length1));
+           StringBuilder c=new StringBuilder(n.substring(0,length2/2));
+           StringBuilder d=new StringBuilder(n.substring(length2/2,length2));
            
-           a.append(m.substring(0,length1/2));
-           b.append(m.substring(length1/2,length1));
-           c.append(n.substring(0,length2/2));
-           d.append(n.substring(length2/2,length2));
+           int sh=b.length();
            
-           StringBuilder t1=new StringBuilder();
-           StringBuilder t2=new StringBuilder();
-           StringBuilder t3=new StringBuilder();
-           StringBuilder t4=new StringBuilder();
+           StringBuilder sum1=new StringBuilder(add(a,b));
+           StringBuilder sum2=new StringBuilder(add(c,d));
            
-           String temp=new String(multiply(a,c));
+           
+                      
+           StringBuilder t1=new StringBuilder(multiply(a,c));
+           StringBuilder t2=new StringBuilder(multiply(b,d));
+           StringBuilder t3=new StringBuilder(multiply(sum1,sum2));
+           StringBuilder t4=new StringBuilder(subtract(t3,add(t1,t2)));
+           StringBuilder t1padded=new StringBuilder(padding(t1,2*sh));
+           StringBuilder t4padded=new StringBuilder(padding(t4,sh));
+           
           
-            t1.append((multiply(a,c)));
-           t2.append(multiply(b,d).toString());
-           //t3=t3.append(multiply(add(a,b),add(c,d)));
-           //t4=t4.append(subtract(t3,add(t1,t2)));
-           //t1=padding(t1,Math.max(length1,length2));
-           //t4=padding(t4,Math.max(length1,length2)/2);
+           return add(t1padded,add(t2,t4padded));
            
-           //return add(t1,add(t2,t4));
-           return t1.toString();
        }
           
     }
-    
-    /*private int[] add(int[]m,int[] n)
-    {
-        int carryover=0;
-        int[]temp=new int[m.length+1];
-        for (int i=m.length-1; i>=0;i--)
-        {
-            int t=m[i]+n[i]+carryover;
-            if(t>9)
-            {
-                carryover=1;
-                temp[i+1]=t-10;
-            }
-            else
-            {
-                carryover=0;
-                temp[i+1]=t;
-            }
-            if (i==0)
-             
-                    temp[0]=carryover;
-        }
-    
-        return temp;
-    
-    
-    }
-     **/  
-    public String add(StringBuilder m, StringBuilder n)
+   
+    public StringBuilder add(StringBuilder m, StringBuilder n)
     {
      String t=new String();
      String q=new String();
@@ -91,39 +76,40 @@ public class Karatsuba {
      t=m.toString();
      q=n.toString();
      
-     int sum=Integer.parseInt(t)+Integer.parseInt(q);
-     
-     return Integer.toString(sum);
+     Long sum=Long.parseLong(t)+Long.parseLong(q);
+     StringBuilder temp = new StringBuilder(Long.toString(sum));
+     return temp;
     }
+   
     private String subtract(StringBuilder m, StringBuilder n) // special subtract does not take into consideration -ve result
     {
      String t=new String();
      String q=new String();
      t=m.toString();
      q=n.toString();
-     //StringBuilder Result=new StringBuilder();
-     int sum=Integer.parseInt(t)-Integer.parseInt(q);
+    
+     Long sum=Long.parseLong(t)-Long.parseLong(q);
      
-     return Integer.toString(sum);
+     return Long.toString(sum);
     }
     
-   private String padding(StringBuilder m, int nzeroes)
+   private StringBuilder padding(StringBuilder m, int nzeroes)
    {
-       StringBuilder temp=new StringBuilder();
-       temp=m;
+       
+       
        for (int i=0;i<nzeroes;i++)
        {
-          temp.append(0);
+          m.append(0);
        }
-       return temp.toString();
+       return m;
    }
    
    
-   private int testvalue(StringBuilder m)
+   private Long testvalue(StringBuilder m)
    {
        int npositive=0;
        String t=m.toString();
-       return Integer.parseInt(t);
+       return Long.parseLong(t);
    }
    
    
@@ -131,17 +117,17 @@ public class Karatsuba {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+   /** public static void main(String[] args) {
         // TODO code application logic here
    
-        StringBuilder a=new StringBuilder("1234");
-        StringBuilder b=new StringBuilder("5678");
-        String c=new String();
+        StringBuilder a=new StringBuilder("100123");
+        StringBuilder b=new StringBuilder("123456789");
+        StringBuilder c=new StringBuilder();
         
         Karatsuba t=new Karatsuba();
         c=t.multiply(a, b);
-        
+        System.out.println(c.toString());
     
     
-    }
+    }*/
 }
