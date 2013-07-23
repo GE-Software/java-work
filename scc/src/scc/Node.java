@@ -2,11 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package strongConnectedComponents;
+package scc;
+
+import java.util.LinkedList;
 
 
-import java.util.Collection;
-import java.util.Iterator;
+
 
 /**
  *
@@ -15,7 +16,7 @@ import java.util.Iterator;
 public class Node {
     
        private int id;
-       private Edge next=new Edge();
+       private LinkedList<Edge>next=new LinkedList<Edge>();
         
         
     Node()
@@ -31,16 +32,24 @@ public class Node {
     {
         id=t;
     }
-    public void setNext(Edge t)
+    public void setNext(LinkedList<Edge> t)
     {
-        next=t;
+       //LinkedList<Edge> temp=new LinkedList();
+       //Edge tedge;
+        next=new LinkedList<Edge>();
+       for (int i=0;i<t.size();i++)
+       {
+       next.add(t.get(i));               
+       }
+       
     }
     public int getId()
     {
         return id;
     }
-    public Edge getNext()
+    public LinkedList<Edge> getNext()
     {
+        
         return next;
     }
     

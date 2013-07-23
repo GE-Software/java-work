@@ -2,7 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package strongConnectedComponents;
+package scc;
+
+import java.util.LinkedList;
 
 /**
  *
@@ -26,10 +28,12 @@ public class Edge {
     }
     public Node getTail()
     {
+               
         return tail;
     }
     public Node getHead()
     {
+                 
         return head;
     }
     public boolean getDirected()
@@ -42,11 +46,13 @@ public class Edge {
     }
 public void setTail(Node t)
     {
+        
         tail=t;
     }
     public void setHead(Node t)
     {
         head=t;
+        
     }
     public void setDirected(boolean t)
     {
