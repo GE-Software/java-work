@@ -42,7 +42,7 @@ public class MinCut {
             int headindex = edgeList.get(i).getHead().getId();
             int j = i + 1;
             boolean found = false;
-            while (found == false && j < edgeList.size()) {
+            /*while (found == false && j < edgeList.size()) {
                 if ((tailindex == edgeList.get(j).getHead().getId()) && (headindex == edgeList.get(j).getTail().getId())) {
                     temp[counter] = j;
                     counter = counter + 1;
@@ -53,7 +53,9 @@ public class MinCut {
                     j = j + 1;
                 }
             }
-        }
+        
+        */}
+        
 
     }
 
@@ -73,7 +75,7 @@ public class MinCut {
                 removeSelfLoops();
             }
         }
-        return edgeList.size();
+        return edgeList.size()/2;
     }
 
     private void AdjustEdges(int tailId, int headId) {
@@ -152,7 +154,7 @@ public class MinCut {
         List<Edge> e = new LinkedList<>();
 
         Node[] temp = new Node[200];
-        for (int iteration = 0; iteration < 500; iteration++) {
+        for (int iteration = 0; iteration < 1; iteration++) {
             v = new LinkedList<>();
             e = new LinkedList<>();
 
