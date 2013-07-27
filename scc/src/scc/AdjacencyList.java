@@ -13,14 +13,14 @@ import java.util.List;
  */
 public class AdjacencyList {
  
-    LinkedList<Node> vertex=new LinkedList<>();
+    LinkedList<Node> vertex;
     
     
     
     AdjacencyList(LinkedList<Node> n , LinkedList<Edge>[] m)
     {
         
-        
+        vertex=new LinkedList<>();
         
         for (int i=0; i<n.size();i++)
         {
@@ -33,6 +33,27 @@ public class AdjacencyList {
         }
       
     }
+   AdjacencyList(LinkedList<Node> n , LinkedList<Edge> m,int index)
+   {
+        if (vertex==null)
+            vertex=new LinkedList<>();
+           Node tnode=new Node();
+           tnode.setId(index);
+           tnode.setNext(m);
+            vertex.add(tnode);
+            //vertex.get(i).setNext(m[i]);
+         
+     }
+      
+    
+    
+    
+    
+    
+    
+    
+    
+    
     public Node getVertex(int index)
     {
         return vertex.get(index);

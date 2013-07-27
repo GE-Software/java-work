@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package scc;
+package sscimproved;
 
 import java.util.LinkedList;
 
@@ -13,26 +13,21 @@ import java.util.LinkedList;
 
 public class Edge {
 
-    private  Node tail;
-    private Node head;
+    private  int tail;
+    private int head;
     private boolean directed;
     private int weight;
 
     
     public Edge()
     {
-        tail=new Node();
-        head=new Node();
-       
-        directed=false;
-        weight=0;
     }
-    public Node getTail()
+    public int getTail()
     {
                
         return tail;
     }
-    public Node getHead()
+    public int getHead()
     {
                  
         return head;
@@ -45,12 +40,12 @@ public class Edge {
     {
         return weight;
     }
-public void setTail(Node t)
+public void setTail(int t)
     {
         
         tail=t;
     }
-    public void setHead(Node t)
+    public void setHead(int t)
     {
         head=t;
         
@@ -64,6 +59,12 @@ public void setTail(Node t)
         weight=t;
     }
 
-
+public void setEdge(int tail,int head, boolean directed,int weight)
+{
+    this.tail=tail;
+    this.head=head;
+    this.directed=directed;
+    this.weight=weight;
+}
 
 }
