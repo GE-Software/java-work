@@ -114,39 +114,52 @@ public class DijkstraImproved1 {
             line=line.replace("\t"," ");
             String[] parts = line.split(" ");
             
+            int currentWeight;
+            Node tnode=new Node();
+            Node tnodeHead;
+            Edge tedge=new Edge();
+            tnode.setId(Integer.parseInt(parts[0]) - 1);
+            
+            if (tnode.getId()-previousTailId>1)
+                for (int i=1;i<tnode.getId()-previousTailId;i++ )
+                {
+                    Node temp=new Node();
+                    temp.setId(previousTailId+i);
+                    temp.setNext(null);
+                    temp.setScore(0);
+                    nodes.add(temp);
+                }
+            
+            
+            tnode.setNext(null);
+            tnode.setScore(0);
+            nodes.add(tnode);
+            
+            
+            
             
             currentTailId = Integer.parseInt(parts[0]) - 1;
-             
             
-
-            if (currentTailId == previousTailId) {
-                //System.out.println(currentTailId + "   " + currentHeadId);
-
-                //adalHead[previousTailId].add(currentHeadId);
-
-                previousTailId = currentTailId;
-
-            } else {
-                if (currentTailId - previousTailId > 1) {
-                    for (int i = 1; i < currentTailId - previousTailId; i++) {
-                        //adalTail[previousTailId + i]=new ArrayList();
-                        //      adalHead[previousTailId + i] = new ArrayList();
-                    }
-                }
-
-
-                //System.out.println(currentTailId + "   " + currentHeadId);
-
-                previousTailId = currentTailId;
-                //adalHead[previousTailId].add(currentHeadId);
-                //adalTail[previousTailId].add(currentTailId);
+            for (int i=1;i<parts.length;i++)
+            {
+                currentHeadId=Integer.parseInt(parts[i]);
+                currentWeight=Integer.parseInt(parts[i+1]);
+                tedge.setTail(tnode);
+                tedge.setWeight(currentWeight);
+                
+                tnodeHead=new Node();
+                tnodeHead.setId(currentHeadId);
+                tnodeHead.setNext(null);
+                tnodeHead.setScore(0);
+                tedge.setHead(tnodeHead);
+                edges[currentTailId].add(tedge);
+                i=i+2;
             }
+        previousTailId=currentTailId;
+        
         }
-        for (int i = 0; i < nNodes; i++) //            adalHead[i].trimToSize();
-        {
-            bf.close();
-        }
-        s.close();
+
+            
 
         al = new AdjacencyList(nodes, edges);
 
