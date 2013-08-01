@@ -1,6 +1,6 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Basic implementation of Dijkstra algorithm which is not fast specially for the selection of min item
+ * 
  */
 package dijkstraimproved2;
 
@@ -91,15 +91,9 @@ public class DijkstraImproved2 {
          }
     }
 
-    private void buildHeap() {
+  
 
-        Node[] temp = new Node[nNodes];
-        temp = al.getVertexArray();
-        //heap.heapify(temp);
-        //heap.deleteByValue(start.getId());
-    }
-
-    // need modifications in order to accomodate the file structure
+    
     private void readfile(String filename) throws FileNotFoundException, IOException {
         // initialization of the arraylist to be used for the initialization of the Adjacency List
 
@@ -176,10 +170,8 @@ public class DijkstraImproved2 {
 
         }
         s.close();
-
-
-        al = new AdjacencyList(nodes, edges);
-        //al.vertex.get(start.getId()).setScore(0);
+      al = new AdjacencyList(nodes, edges);
+    
     }
 
     /**
