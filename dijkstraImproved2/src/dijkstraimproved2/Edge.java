@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package dijkstraimproved1;
+package dijkstraimproved2;
 
 
 /**
@@ -16,8 +16,8 @@ public class Edge {
     private Node head;
     private boolean directed;
     private int weight;
-    static final int inf=1000000;
-    
+    final int inf=1000000;
+    //private int score; 
     public Edge()
     {
         tail=new Node();
@@ -25,6 +25,7 @@ public class Edge {
        
         directed=false;
         weight=inf;
+        //score=inf;
     }
     public Node getTail()
     {
@@ -62,7 +63,21 @@ public void setTail(Node t)
     {
         weight=t;
     }
-
-
-
+   /* public void setScore(int s)
+    {
+        score=s;
+    }
+    public int getScore()
+    {
+        return score;
+    }*/
+    public static Edge copy(Edge s)
+    {
+        Edge temp=new Edge();
+        temp.head=s.head;
+        temp.tail=s.tail;
+        //temp.score=s.score;
+        temp.weight=s.weight;
+        return temp;
+    }
 }

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package dijkstraimproved1;
+package dijkstraimproved2;
 
 import java.util.ArrayList;
 
@@ -32,7 +32,7 @@ public class AdjacencyList {
         }
       
     }
-   AdjacencyList(ArrayList<Edge> m,int index)
+   AdjacencyList(ArrayList<Node> n , ArrayList<Edge> m,int index)
    {
         if (vertex==null)
             vertex=new ArrayList<>();
@@ -65,13 +65,7 @@ public class AdjacencyList {
           temp[i]=vertex.get(i);
     return temp;
     }
-    public int[] getVertexIndexArray()
-    {
-        int[]temp=new int[vertex.size()];
-       for (int i=0;i<vertex.size();i++)
-        temp[i]=vertex.get(i).getId();
-        return temp;
-    }
+    
     
     public void setVertex(Node[]a )
     {
@@ -100,18 +94,9 @@ public class AdjacencyList {
                 vertex.get(i).setNext(a[i]);
             }
     }
-public int getEdgeWeight(int v,int index)
-{
-    return vertex.get(v).getNext().get(index).getWeight();
-}
- public int getNextSize(int v)
- {
-     return vertex.get(v).getNext().size();
- }
-  public int getHeadId(int v, int index)  
+
     
-  {
-      return vertex.get(v).getNext().get(index).getHead().getId();
-  }
+    
+    
     
 }

@@ -2,13 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package dijkstraimproved1;
+package dijkstraimproved2;
 
 import java.util.ArrayList;
-
-
-
-
 
 /**
  *
@@ -18,19 +14,19 @@ public class Node {
     
        private int id;
        private ArrayList<Edge>next=new ArrayList<Edge>();
-      // private int score;
-      static final int inf=1000000; 
+       public int score;
+       final int inf=1000000; 
     public Node()
             {
               id=-1;
                next=null;
-        //       score=inf;
+               score=inf;
             }
     public Node(Node s)
     {
         id=s.getId();
         next=s.getNext();
-        //score=s.getScore();
+        score=s.getScore();
     }
 
     public void setId(int t)
@@ -53,23 +49,22 @@ public class Node {
     }
     
     
-/*public void setScore(int score)
-{
-    this.score=score;
-}*/
-
-/*public int getScore()
-{
-    return score;
-}*/
-
 static public Node copy(Node s)
 {
     Node temp=new Node();
     temp.id=s.id;
-   // temp.score=s.score;
     temp.next=s.next;
+    temp.score=s.score;
     return temp;
+    
+}
+ public int getScore()
+{
+    return score;
+}
+public void setScore(int s)
+{
+    score=s;
 }
 
 }
