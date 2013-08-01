@@ -1,7 +1,7 @@
 
-/*this program contains a bug as the calculation is incorrect. the head 
-* which is essential for the operation was tested and found correct.
-*/
+/*fast implementation of the Dijkstra alogrithm with heap that allows log(n) deletion from any place 
+ * extremely suitable for use with Dijkstra
+ */
 package dijkstraimproved1;
 
 import java.io.BufferedReader;
@@ -71,17 +71,16 @@ public class DijkstraImproved1 {
     public void calculateDijkstra() {
         while (heap.getSize() > 0) {
             int s = heap.deletemin();
+           // this code is only for testing that the min is actually deleted from the heap
+            
+            
             explored[s] = true;
             calculateScore(s);
         }
     }
 
     private void buildHeap() {
-/*
-        int[] temp = new int[nNodes];
-        temp = al.getVertexIndexArray();
-        heap.heapify(temp);
-*/
+
         int[] temp = new int[nNodes];
         temp = al.getVertexIndexArray();
         for (int i=0; i<al.getVertexIndexArray().length;i++)
@@ -160,7 +159,7 @@ public class DijkstraImproved1 {
         al = new AdjacencyList(nodes, edges);
 
     }
-/*
+
     public static void main(String[] args) {
         // TODO code application logic here
 
@@ -193,5 +192,5 @@ public class DijkstraImproved1 {
         System.out.println(Heap.a[187]);
         System.out.println(Heap.a[196]);
 
-    }*/
+    }
 }

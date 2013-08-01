@@ -1,26 +1,32 @@
 /*
+ * 
+ * complicated heap implementation
+ * 
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
 // this is implementation of min Heap , with deleteByValue added to be used in 
-//dijkstra algorithm.
+//dijkstra algorithm. a fast one with heapify to initialize in linear time , hash table to allow for log(n)
+// deletion from the heap.
 package dijkstraimproved1;
 
 import java.util.Hashtable;
 
 public class Heap {
 
-    private int[] heap;
+    private int[] heap;///////return tp private
     private int lastindex = -1;
     static int[] a;
-    Hashtable<Integer,Integer> hash;
-     final int inf=1000000;
+    Hashtable<Integer, Integer> hash;
+    final int inf = 1000000;
+
     Heap(int size) {
         heap = new int[size];
-        hash=new Hashtable();
-        a=new int[size];
-        for (int i=0; i<size;i++)
-            a[i]=inf;
+        hash = new Hashtable();
+        a = new int[size];
+        for (int i = 0; i < size; i++) {
+            a[i] = inf;
+        }
     }
 
     public int getSize() {
@@ -32,24 +38,24 @@ public class Heap {
         int temp;
         lastindex += 1;
         heap[lastindex] = element;
-        
+
+
         hash.put(element, lastindex);
-        
+
         tempIndex = lastindex;
-        
+
         while (tempIndex != 0) {
             parentindex = (tempIndex - 1) / 2;
             if (a[heap[tempIndex]] < a[heap[parentindex]]) {
                 temp = heap[parentindex];
                 hash.remove(heap[tempIndex]);
-                hash.put(heap[tempIndex],parentindex);
+                hash.put(heap[tempIndex], parentindex);
                 hash.remove(temp);
-                hash.put(temp,tempIndex);
+                hash.put(temp, tempIndex);
                 heap[parentindex] = heap[tempIndex];
                 heap[tempIndex] = temp;
                 tempIndex = parentindex;
-            }
-            else {
+            } else {
                 tempIndex = 0;
             }
         }
@@ -64,35 +70,38 @@ public class Heap {
     }
 
     public int deletemin() {
-        int value=0;
+        int value = 0;
         int tempindex;
         int temp;
-        if (lastindex!=-1) {
+        if (lastindex != -1) {
 
             value = heap[0];
             hash.remove(value);
-            hash.put(value,-inf);
+            hash.put(value, -inf);
             tempindex = 0;
             heap[0] = heap[lastindex];
             hash.remove(heap[lastindex]);
-            if(lastindex!=0)
-            hash.put(heap[lastindex], 0);
-            else
-                hash.put(heap[lastindex],-inf);
+            if (lastindex != 0) {
+                hash.put(heap[lastindex], 0);
+            } else {
+                hash.put(heap[lastindex], -inf);
+            }
+
             lastindex -= 1;
-            
-            while(2*tempindex+1<=lastindex)
-            {
+
+            while (2 * tempindex + 1 <= lastindex) {
                 int smallest;
-                int l=2*tempindex+1;
-                int r=2*tempindex+2;
-                if ((l<=lastindex) &&(a[heap[l]]<a[heap[tempindex]]))
-                    smallest=l;
-                else 
-                    smallest=tempindex;
-                if (r <= lastindex && a[heap[r]] < a[heap[smallest]]) 
-                   smallest = r;
-        
+                int l = 2 * tempindex + 1;
+                int r = 2 * tempindex + 2;
+                if ((a[heap[l]] < a[heap[tempindex]])) {
+                    smallest = l;
+                } else {
+                    smallest = tempindex;
+                }
+                if (r <= lastindex && (a[heap[r]] < a[heap[smallest]])) {
+                    smallest = r;
+                }
+
                 if (smallest != tempindex) {
                     temp = heap[smallest];
                     hash.remove(heap[tempindex]);
@@ -101,85 +110,92 @@ public class Heap {
                     hash.put(temp, tempindex);
                     heap[smallest] = heap[tempindex];
                     heap[tempindex] = temp;
-                    
-                    }
-                tempindex=2*tempindex+1;
+
+                }
+                if (smallest == l) {
+                    tempindex = 2 * tempindex + 1;
+                } else {
+                    tempindex = 2 * tempindex + 2;
+                }
             }
         }
-    return value;
+        return value;
     }
 
     // delete by ID
     public void deleteByValue(int idValue) {
 
         int tempindex = 0;
-        int temp;
-        tempindex=hash.get(idValue);
-       
-        
-        hash.remove(idValue);
-        hash.put(idValue,-inf);
-        int parentindex;
-        heap[tempindex] = heap[lastindex];
-        hash.remove(heap[lastindex]);
-        hash.put(heap[lastindex],tempindex);
-        lastindex -= 1;
-                
-    if(heap[tempindex]<heap[(tempindex-1)/2]){    
-           while (tempindex != 0) {
-            parentindex = (tempindex - 1) / 2;
-            if (a[heap[tempindex]] < a[heap[parentindex]]) {
-                temp = heap[parentindex];
-                hash.remove(heap[tempindex]);
-                hash.put(heap[tempindex],parentindex);
-                hash.remove(temp);
-                hash.put(temp,tempindex);
-                heap[parentindex] = heap[tempindex];
-                heap[tempindex] = temp;
-                tempindex = parentindex;
-            }
-            else 
-                tempindex = 0;
-            
-          }
-        }
-        else
-            while(2*tempindex+1<=lastindex)
-            {
-                int smallest;
-                int l=2*tempindex+1;
-                int r=2*tempindex+2;
-                if ((l<=lastindex) &&(a[heap[l]]<a[heap[tempindex]]))
-                    smallest=l;
-                else 
-                    smallest=tempindex;
-                if (r <= lastindex && a[heap[r]] < a[heap[smallest]]) 
-                   smallest = r;
-        
-                if (smallest != tempindex) {
-                    temp = heap[smallest];
-                    hash.remove(heap[tempindex]);
-                    hash.put(heap[tempindex], smallest);
-                    hash.remove(temp);
-                    hash.put(temp, tempindex);
-                    heap[smallest] = heap[tempindex];
-                    heap[tempindex] = temp;
+        int temp = 0;
+        tempindex = hash.get(idValue);
+
+        if (tempindex != -inf) {
+            hash.remove(idValue);
+            hash.put(idValue, -inf);
+            int parentindex;
+            heap[tempindex] = heap[lastindex];
+            hash.remove(heap[lastindex]);
+            hash.put(heap[lastindex], tempindex);
+            lastindex -= 1;
+//bubble up
+            if (a[heap[tempindex]] < a[heap[(tempindex - 1) / 2]]) {
+                while (tempindex != 0) {
+                    parentindex = (tempindex - 1) / 2;
+                    if (a[heap[tempindex]] < a[heap[parentindex]]) {
+                        temp = heap[parentindex];
+                        hash.remove(heap[tempindex]);
+                        hash.put(heap[tempindex], parentindex);
+                        hash.remove(temp);
+                        hash.put(temp, tempindex);
+                        heap[parentindex] = heap[tempindex];
+                        heap[tempindex] = temp;
+                        tempindex = parentindex;
+                    } else {
+                        tempindex = 0;
                     }
-                tempindex=2*tempindex+1;
+
+                }
+            } else {
+                while (2 * tempindex + 1 <= lastindex) {
+                    int smallest;
+                    int l = 2 * tempindex + 1;
+                    int r = 2 * tempindex + 2;
+                    if ((l <= lastindex) && (a[heap[l]] < a[heap[tempindex]])) {
+                        smallest = l;
+                    } else {
+                        smallest = tempindex;
+                    }
+                    if (r <= lastindex && a[heap[r]] < a[heap[smallest]]) {
+                        smallest = r;
+                    }
+
+                    if (smallest != tempindex) {
+                        temp = heap[smallest];
+                        hash.remove(heap[tempindex]);
+                        hash.put(heap[tempindex], smallest);
+                        hash.remove(temp);
+                        hash.put(temp, tempindex);
+                        heap[smallest] = heap[tempindex];
+                        heap[tempindex] = temp;
+                    }
+                    if (smallest == l) {
+                        tempindex = 2 * tempindex + 1;
+                    } else {
+                        tempindex = 2 * tempindex + 2;
+                    }
+                }
             }
         }
-        
-    
+    }
 
     public void heapify(int[] a) {
         int heapsize = a.length;
         heap = a;
-        for (int i=0;i<heapsize;i++)
-        {
-            hash.put(a[i],i);
+        for (int i = 0; i < heapsize; i++) {
+            hash.put(a[i], i);
         }
         lastindex = heapsize - 1;
-        for (int i = (heapsize / 2);i >= 0; i--) {
+        for (int i = (heapsize / 2); i >= 0; i--) {
             heapArrange(i);
         }
 
@@ -206,45 +222,43 @@ public class Heap {
             hash.put(temp, index);
             heap[smallest] = heap[index];
             heap[index] = temp;
-            
+
             heapArrange(smallest);
         }
 
     }
-
     /**
      * @param args the command line arguments
      */
-   
-    public static void main(String[] args) {
-        //TODO code application logic here
+    /*
+     public static void main(String[] args) {
+     //TODO code application logic here
      Heap test=new Heap(200);
      int[] a=new int[200];
      test.a[0]=0;
      for (int i=0; i<200;i++)
      {
-         a[i]=i;
-        // test.insert(a[i]);
-         test.a[i]=1000000;
+     a[i]=i;
+     // test.insert(a[i]);
+     test.a[i]=1000000;
      }
      
      for (int i=0; i<200; i++)
-         test.deletemin();
+     test.deletemin();
      
         
-        test.heapify(a);
-        int t=test.deletemin();
-        test.a[50]=5;
-        test.a[60]=6;
-        test.deleteByValue(50);
-        test.deleteByValue(60);
-        test.insert(50);
-        test.insert(60);
-        test.deleteByValue(60);
-        t=test.deletemin();
-        test.deleteByValue(5);
-    }
-
+     test.heapify(a);
+     int t=test.deletemin();
+     test.a[50]=5;
+     test.a[60]=6;
+     test.deleteByValue(50);
+     test.deleteByValue(60);
+     test.insert(50);
+     test.insert(60);
+     test.deleteByValue(60);
+     t=test.deletemin();
+     test.deleteByValue(5);
+     }*/
 }
 /*   Heap test = new Heap(7);
         int[] a = new int [7];
