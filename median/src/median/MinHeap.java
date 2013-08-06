@@ -16,17 +16,17 @@ public class MinHeap {
 
     private int[] heap;///////return tp private
     private int lastindex = -1;
-    static int[] a;
+    //static int[] a;
     Hashtable<Integer, Integer> hash;
     final int inf = 1000000;
 
     MinHeap(int size) {
         heap = new int[size];
         hash = new Hashtable();
-        a = new int[size];
-        for (int i = 0; i < size; i++) {
-            a[i] = inf;
-        }
+      //  a = new int[size];
+      //  for (int i = 0; i < size; i++) {
+       //     a[i] = inf;
+        //}
     }
 
     public int getSize() {
@@ -46,7 +46,7 @@ public class MinHeap {
 
         while (tempIndex != 0) {
             parentindex = (tempIndex - 1) / 2;
-            if (a[heap[tempIndex]] < a[heap[parentindex]]) {
+            if (heap[tempIndex] < heap[parentindex]) {
                 temp = heap[parentindex];
                 hash.remove(heap[tempIndex]);
                 hash.put(heap[tempIndex], parentindex);
@@ -93,12 +93,12 @@ public class MinHeap {
                 int smallest;
                 int l = 2 * tempindex + 1;
                 int r = 2 * tempindex + 2;
-                if ((a[heap[l]] < a[heap[tempindex]])) {
+                if ((heap[l] < heap[tempindex])) {
                     smallest = l;
                 } else {
                     smallest = tempindex;
                 }
-                if (r <= lastindex && (a[heap[r]] < a[heap[smallest]])) {
+                if (r <= lastindex && (heap[r] < heap[smallest])) {
                     smallest = r;
                 }
 
@@ -138,10 +138,10 @@ public class MinHeap {
             hash.put(heap[lastindex], tempindex);
             lastindex -= 1;
 //bubble up
-            if (a[heap[tempindex]] < a[heap[(tempindex - 1) / 2]]) {
+            if (heap[tempindex] < heap[(tempindex - 1) / 2]) {
                 while (tempindex != 0) {
                     parentindex = (tempindex - 1) / 2;
-                    if (a[heap[tempindex]] < a[heap[parentindex]]) {
+                    if (heap[tempindex] < heap[parentindex]) {
                         temp = heap[parentindex];
                         hash.remove(heap[tempindex]);
                         hash.put(heap[tempindex], parentindex);
@@ -160,12 +160,12 @@ public class MinHeap {
                     int smallest;
                     int l = 2 * tempindex + 1;
                     int r = 2 * tempindex + 2;
-                    if ((l <= lastindex) && (a[heap[l]] < a[heap[tempindex]])) {
+                    if ((l <= lastindex) && (heap[l] < heap[tempindex])) {
                         smallest = l;
                     } else {
                         smallest = tempindex;
                     }
-                    if (r <= lastindex && a[heap[r]] < a[heap[smallest]]) {
+                    if (r <= lastindex && heap[r] < heap[smallest]) {
                         smallest = r;
                     }
 
@@ -206,12 +206,13 @@ public class MinHeap {
         int smallest;
         l = 2 * index + 1;
         r = 2 * index + 2;
-        if (l <= lastindex && a[heap[l]] < a[heap[index]]) {
+        if (l <= lastindex && heap[l] < heap[index]) {
             smallest = l;
-        } else {
+        } 
+        else {
             smallest = index;
         }
-        if (r <= lastindex && a[heap[r]] < a[heap[smallest]]) {
+        if (r <= lastindex && heap[r] < heap[smallest]) {
             smallest = r;
         }
         if (smallest != index) {
@@ -227,6 +228,11 @@ public class MinHeap {
         }
 
     }
+    public int getmin()
+{
+    return heap[0];
+}
+
     /**
      * @param args the command line arguments
      */

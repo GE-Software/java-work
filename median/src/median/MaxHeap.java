@@ -11,19 +11,19 @@ import java.util.Hashtable;
  * @author Lenovo-BM
  */
 public class MaxHeap {
- private int[] heap;///////return tp private
+    private int[] heap;///////return tp private
     private int lastindex = -1;
-    static int[] a;
+    //static int[] a;
     Hashtable<Integer, Integer> hash;
     final int inf = 1000000;
 
     MaxHeap(int size) {
         heap = new int[size];
         hash = new Hashtable();
-        a = new int[size];
-        for (int i = 0; i < size; i++) {
-            a[i] = -inf;
-        }
+      //  a = new int[size];
+      //  for (int i = 0; i < size; i++) {
+      //      a[i] = -inf;
+       // }
     }
 
     public int getSize() {
@@ -43,7 +43,7 @@ public class MaxHeap {
 
         while (tempIndex != 0) {
             parentindex = (tempIndex - 1) / 2;
-            if (a[heap[tempIndex]] > a[heap[parentindex]]) {
+            if (heap[tempIndex] > heap[parentindex]) {
                 temp = heap[parentindex];
                 hash.remove(heap[tempIndex]);
                 hash.put(heap[tempIndex], parentindex);
@@ -91,12 +91,12 @@ public class MaxHeap {
                 int largest;
                 int l = 2 * tempindex + 1;
                 int r = 2 * tempindex + 2;
-                if ((a[heap[l]] > a[heap[tempindex]])) {
+                if ((heap[l] > heap[tempindex])) {
                     largest = l;
                 } else {
                     largest = tempindex;
                 }
-                if (r <= lastindex && (a[heap[r]] > a[heap[largest]])) {
+                if (r <= lastindex && (heap[r] > heap[largest])) {
                     largest = r;
                 }
 
@@ -136,10 +136,10 @@ public class MaxHeap {
             hash.put(heap[lastindex], tempindex);
             lastindex -= 1;
 //bubble up
-            if (a[heap[tempindex]] > a[heap[(tempindex - 1) / 2]]) {
+            if (heap[tempindex] > heap[(tempindex - 1) / 2]) {
                 while (tempindex != 0) {
                     parentindex = (tempindex - 1) / 2;
-                    if (a[heap[tempindex]] < a[heap[parentindex]]) {
+                    if (heap[tempindex] < heap[parentindex]) {
                         temp = heap[parentindex];
                         hash.remove(heap[tempindex]);
                         hash.put(heap[tempindex], parentindex);
@@ -158,12 +158,12 @@ public class MaxHeap {
                     int largest;
                     int l = 2 * tempindex + 1;
                     int r = 2 * tempindex + 2;
-                    if ((l <= lastindex) && (a[heap[l]] > a[heap[tempindex]])) {
+                    if ((l <= lastindex) && (heap[l] > heap[tempindex])) {
                         largest = l;
                     } else {
                         largest = tempindex;
                     }
-                    if (r <= lastindex && a[heap[r]] > a[heap[largest]]) {
+                    if (r <= lastindex && heap[r] > heap[largest]) {
                         largest = r;
                     }
 
@@ -204,12 +204,13 @@ public class MaxHeap {
         int largest;
         l = 2 * index + 1;
         r = 2 * index + 2;
-        if (l <= lastindex && a[heap[l]] > a[heap[index]]) {
+        if (l <= lastindex && heap[l] > heap[index]) {
             largest = l;
-        } else {
+        } 
+        else {
             largest = index;
         }
-        if (r <= lastindex && a[heap[r]] > a[heap[largest]]) {
+        if (r <= lastindex && heap[r] > heap[largest]) {
             largest = r;
         }
         if (largest != index) {
@@ -225,11 +226,16 @@ public class MaxHeap {
         }
 
     }
+    
+    public int getmax()
+{
+    return heap[0];
+}
     /**
      * @param args the command line arguments
      */
     
-     public static void main(String[] args) {
+     /*public static void main(String[] args) {
          MaxHeap t=new MaxHeap(10);
          
          for (int i=0;i<10;i++)
@@ -241,5 +247,7 @@ public class MaxHeap {
          temp=t.deletemax();
          t.deleteByValue(5);
          
-     }
+     }*/
+
+
 }
