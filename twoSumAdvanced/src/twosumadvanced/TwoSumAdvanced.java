@@ -8,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Random;
 import java.util.Scanner;
@@ -19,7 +20,7 @@ import java.util.Scanner;
 public class TwoSumAdvanced {
 
     Long[] A;
-    Hashtable<Long, Long> numbers;
+    HashMap<Long, Long> numbers;
     int counter = 0;
     int arrayActiveElements;
 
@@ -27,7 +28,7 @@ public class TwoSumAdvanced {
 
         A = new Long[nelements];
 
-        numbers = new Hashtable(3000000);
+        numbers = new HashMap(3000000);
         readfile();
 
     }

@@ -22,9 +22,9 @@ public class Twosum {
         A=new int[nelements];
         Mergesort sorted=new Mergesort();
         numbers=new Hashtable(3*nelements);
-        for (int i=0;i<nelements;i++)
+        //for (int i=0;i<nelements;i++)
             
-            A[i]=randomGenerator.nextInt(2*nelements);
+           // A[i]=randomGenerator.nextInt(2*nelements);
            
            A=sorted.mergesort(A,0,nelements-1);
            for (int i=0;i<nelements;i++)
